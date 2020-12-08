@@ -7,7 +7,7 @@ const mongoose = require('mongoose')
 const Product = require('./models/product')
 
 const app = express()
-const port = process.env.PORT || 3010
+const port = process.env.PORT || 3011
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
@@ -49,7 +49,10 @@ app.post('/api/product', (req, res)=>{
     console.log(req.body)
     
     let product = new Product()
-    product.entrada = req.body.entrada
+    
+    product.estado = req.body.estado
+    product.temperatura = req.body.temperatura
+    product.fecha = Date.now();
 
     product.save((err, productStored)=>{
         if(err) res.status(500).send({message:`Error al salvar en la base de datos:${err}`})
